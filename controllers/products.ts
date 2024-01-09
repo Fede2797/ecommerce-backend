@@ -1,3 +1,5 @@
-export const newProduct = () => {
+
+
+export const newProduct = ( req, res ) => {
 
 }

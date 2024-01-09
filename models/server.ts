@@ -16,6 +16,9 @@ export class Server {
 
     // Middlewares
     this.middlewares();
+
+    // Routes
+    this.app.use( "/api/products",  )
   } 
 
   async connectDB() {

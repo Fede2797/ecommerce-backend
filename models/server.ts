@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import * as express from "express";
 import { dbConnection } from '../database/config';
+import cors from "cors";
 
 export class Server {
   private app: express.Application;
@@ -12,10 +13,23 @@ export class Server {
 
     // Connect to database
     this.connectDB();
+
+    // Middlewares
+    this.middlewares();
   } 
 
   async connectDB() {
     await dbConnection();
+  }
+
+  middlewares() {
+
+    // CORS
+    this.app.use( cors() );
+
+    // Body parsing
+    this.app.use( express.json );
+
   }
 
   listen() {

@@ -3,7 +3,7 @@ import { check } from 'express-validator';
 import { validateFields } from "../middlewares/validateFields";
 import { newProduct } from "../controllers/products";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/", [
     check('name', 'The product name is mandatory').not().isEmpty(),

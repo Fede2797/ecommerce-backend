@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import * as express from "express";
+import * as cors from "cors";
 import { dbConnection } from '../database/config';
-import cors from "cors";
+import { router as productRouter } from "../routes/products";
 
 export class Server {
   private app: express.Application;
@@ -18,7 +19,7 @@ export class Server {
     this.middlewares();
 
     // Routes
-    this.app.use( "/api/products",  )
+    this.app.use( "/api/products", productRouter );
   } 
 
   async connectDB() {
@@ -31,7 +32,7 @@ export class Server {
     this.app.use( cors() );
 
     // Body parsing
-    this.app.use( express.json );
+    this.app.use( express.json() );
 
   }
 

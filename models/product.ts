@@ -13,9 +13,6 @@ const ProductSchema = Schema({
     imgSource: {
         type: String,
     },
-    fullImgSource: {
-        type: String,
-    },
     price: {
         type: Number,
         required: true

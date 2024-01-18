@@ -1,14 +1,40 @@
-const { Product } = require('../models/product');
-
-export const newProduct = ( req, res ) => {
-
-  console.log("Llega a new product");
-  const { name, imgSource, fullImgSource, price, sizes, category, unitsSold } = req.body;
+import { cloudinaryUpload } from '../helpers/cloudinaryUpload';
+import Product from '../models/product'
 
 
-  res.json("Hola");
+export const newProduct = async ( req, res ) => {
 
-  // TODO: Get images from body and upload them to cloudinary
-  // TODO+ Get the links from cloudinary response and add them to de product imgSource and fullImgSource
-  const product = new Product({ name, imgSource, fullImgSource, price, sizes, category, unitsSold });
+  const { name, price, sizes, category, unitsSold } = req.body;
+  
+  const imageUrl = await cloudinaryUpload(req.file.path);
+
+  if (!imageUrl) {
+    return res.status(500).json({
+      succes: false,
+      message: "Error while uploading the product image"
+    })
+  };
+
+  console.log({imageUrl});
+
+  try {
+  
+    // Create a new product with Cloudinary image URLs
+    const newProduct = new Product({
+      name,
+      price,
+      category,
+      imgSource: imageUrl,
+    });
+  
+    // Save the product to the database
+    await newProduct.save();
+    
+    console.log({newProduct});
+    
+    res.json({ message: 'Product created successfully' });
+    
+  } catch (error) {
+    console.log({error});
+  }
 }

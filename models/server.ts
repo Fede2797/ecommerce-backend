@@ -3,6 +3,7 @@ import * as express from "express";
 import * as cors from "cors";
 import { dbConnection } from '../database/config';
 import { router as productRouter } from "../routes/products";
+import * as bodyParser from "body-parser";
 
 export class Server {
   private app: express.Application;
@@ -32,7 +33,8 @@ export class Server {
     this.app.use( cors() );
 
     // Body parsing
-    this.app.use( express.json() );
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
 
   }
 

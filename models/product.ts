@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const SizeSchema = Schema({
   size: Number,
   available: Boolean,
-})
+}, { _id: false });
 
 const ProductSchema = Schema({
     name: {

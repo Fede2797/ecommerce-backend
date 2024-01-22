@@ -1,7 +1,7 @@
 import * as express from "express";
 import { check } from 'express-validator';
 import { validateFields } from "../middlewares/validateFields";
-import { newProduct } from "../controllers/products";
+import { getEveryProduct, newProduct } from "../controllers/products";
 import upload from "../middlewares/multer";
 
 export const router = express.Router();
@@ -16,3 +16,5 @@ router.post("/", [
     check('category', 'The product category must be a string').isString(),
     validateFields,
   ], newProduct );
+
+router.get("/", getEveryProduct );

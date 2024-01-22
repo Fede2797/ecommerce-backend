@@ -7,6 +7,7 @@ export const newProduct = async ( req, res ) => {
   const { name, price, sizes, category } = req.body;
   // Parses the sizes array from a string
   const parsedSizes = JSON.parse(sizes);
+  console.log({parsedSizes});
 
   try {
 
@@ -18,13 +19,14 @@ export const newProduct = async ( req, res ) => {
         message: "Error while uploading the product image"
       })
     };
+
   
     // Create a new product with Cloudinary image URLs
     const newProduct = new Product({
       name,
       price,
       category,
-      parsedSizes,
+      sizes: parsedSizes,
       imgSource: imageUrl,
     });
   
@@ -45,4 +47,11 @@ export const newProduct = async ( req, res ) => {
       message: "Error while uploading the product"
     })
   }
+}
+
+export const getEveryProduct = async( req, res ) => {
+  const products = await Product.find({});
+
+  console.log(products);
+  res.json(products);
 }

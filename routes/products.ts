@@ -1,7 +1,7 @@
 import * as express from "express";
 import { check } from 'express-validator';
 import { validateFields } from "../middlewares/validateFields";
-import { getEveryProduct, newProduct } from "../controllers/products";
+import { getCategoryProducts, getEveryProduct, getPopularProducts, newProduct } from "../controllers/products";
 import upload from "../middlewares/multer";
 
 export const router = express.Router();
@@ -18,3 +18,7 @@ router.post("/", [
   ], newProduct );
 
 router.get("/", getEveryProduct );
+
+router.get("/popular", getPopularProducts );
+
+router.get("/:category", getCategoryProducts );

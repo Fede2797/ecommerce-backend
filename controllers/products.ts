@@ -74,17 +74,22 @@ export const getCategoryProducts = async(req, res) => {
 
   try {
     // We get the pagination via the request
-    const { page = 1, limit = 40, sortBy = "popularity", category } = req.query;
+    const { page = 1, limit = 40, sortBy = "popularity" } = req.query;
+    const { category } = req.params;
+
     const parsedPage = parseInt(page);
     const parsedLimit = parseInt(limit);
 
     if (!category) {
+      console.log("Request failed. Category wasn't provided");
       return res.status(400).json("Error while attempting to get the products");
     }
     if (!validCategories.includes(category)) {
+      console.log("Request failed. Non valid category");
       return res.status(400).json("Error while attempting to get the products");
     }
     if (isNaN(parsedPage) || isNaN(parsedLimit) || parsedPage <= 0 || parsedLimit <= 0) {
+      console.log("Request failed. Invalid page or limit values.");
       return res.status(400).json({ message: "Invalid page or limit values." });
     }
 

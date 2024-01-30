@@ -1,8 +1,12 @@
 import * as express from "express";
 import { check } from 'express-validator';
 import { validateFields } from "../middlewares/validateFields";
-import { getCategoryProducts, getEveryProduct, getPopularProducts, newProduct } from "../controllers/products";
 import upload from "../middlewares/multer";
+import { getCategoryProducts, 
+  getEveryProduct, 
+  getPopularProducts, 
+  getProductById, 
+  newProduct } from "../controllers/products";
 
 export const router = express.Router();
 
@@ -22,3 +26,5 @@ router.get("/", getEveryProduct );
 router.get("/popular", getPopularProducts );
 
 router.get("/:category", getCategoryProducts );
+
+router.get("/single/:id", getProductById );

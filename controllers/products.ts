@@ -122,3 +122,18 @@ export const getPopularProducts = async( req, res ) => {
     });
   }
 }
+
+export const getProductById = async(req, res) => {
+
+  try {
+    const { id } = req.params;
+    const product = await Product.findById({ _id: id });
+    res.status(200).json(product);
+
+  } catch (err) {
+    console.log(err);
+    res.status(200).json({
+      message: "Error while getting the product"
+    });
+  }
+}

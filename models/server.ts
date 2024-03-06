@@ -30,7 +30,12 @@ export class Server {
   middlewares() {
 
     // CORS
-    this.app.use( cors() );
+    const corsOptions = {
+      origin: 'https://ecommerce-frontend-two-tau.vercel.app/',
+      optionsSuccessStatus: 200,
+    };
+
+    this.app.use( cors(corsOptions) );
 
     // Body parsing
     this.app.use(bodyParser.json());
@@ -40,7 +45,7 @@ export class Server {
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log(`Example app listening on port ${this.port}`);
+      console.log(`Urbaneer backend listening on port ${this.port}`);
     });
   }
 }

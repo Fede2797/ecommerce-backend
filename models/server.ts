@@ -31,7 +31,7 @@ export class Server {
 
     // CORS
     const corsOptions = {
-      origin: 'https://ecommerce-frontend-two-tau.vercel.app/',
+      origin: 'https://ecommerce-frontend-two-tau.vercel.app',
       optionsSuccessStatus: 200,
     };
 

@@ -54,16 +54,23 @@ export const getEveryProduct = async( req, res ) => {
 
     const sort = getSortingMethod(sortBy);
 
-    const products = await Product.find()
+    var products = await Product.find()
         .sort(sort)
         .limit(parsedLimit * 1)
         .skip((parsedPage - 1) * parsedLimit);
+    
+    const totalQuantity = await Product.countDocuments()
+
+    products = {
+      ...products,
+      totalQuantity
+    }
 
     return res.status(200).json(products);
 
   } catch (err) {
       console.log(err);
-      res.status(200).json({
+      res.status(400).json({
         message: "Error while getting the products"
     });
   }
@@ -94,15 +101,23 @@ export const getCategoryProducts = async(req, res) => {
     }
 
     const sort = getSortingMethod(sortBy);
-    const products = await Product.find({category: category})
+    var products = await Product.find({category: category})
         .sort(sort)
         .limit(parsedLimit * 1)
         .skip((parsedPage - 1) * parsedLimit);
 
+    const totalQuantity = await Product.countDocuments({category: category})
+    console.log(totalQuantity);
+
+    products = {
+      ...products,
+      totalQuantity
+    }
+
     return res.status(200).json(products);
   } catch (err) {
       console.log(err);
-      res.status(200).json({
+      res.status(400).json({
         message: "Error while getting the products"
     });
   }
@@ -117,7 +132,7 @@ export const getPopularProducts = async( req, res ) => {
 
   } catch (err) {
     console.log(err);
-    res.status(200).json({
+    res.status(400).json({
       message: "Error while getting the products"
     });
   }
@@ -132,7 +147,7 @@ export const getProductById = async(req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.status(200).json({
+    res.status(400).json({
       message: "Error while getting the product"
     });
   }
